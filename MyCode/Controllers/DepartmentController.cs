@@ -17,7 +17,7 @@ namespace MyCode.Controllers
         public async Task<IActionResult> Index()
         {
             ViewBag.Title = "Department Index";
-            var department = _departmentService.GetAll();
+            var department = await _departmentService.GetAll();
 
             return View(department);
         }

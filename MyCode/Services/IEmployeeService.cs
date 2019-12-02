@@ -10,6 +10,6 @@ namespace MyCode.Services
     {
         Task add(Employee employee);
         Task<IEnumerable<Employee>> GetByDepartmentId(int departmentId);
-        Task<Employee> Fire(int id);
+        Task<Employee> Fired(int id);
     }
 }

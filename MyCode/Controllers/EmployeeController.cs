@@ -52,9 +52,9 @@ namespace MyCode.Controllers
             return RedirectToAction(nameof(Index), new { departmentId = employee.DepartmentId });
         }
 
-        public async Task<IActionResult> Fird(int employeeId)
+        public async Task<IActionResult> Fired(int employeeId)
         {
-            var employee = await _employeeService.Fire(employeeId);
+            var employee = await _employeeService.Fired(employeeId);
 
             return RedirectToAction(nameof(Index), new { departmentId = employee.DepartmentId });
         }

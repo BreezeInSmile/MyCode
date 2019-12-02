@@ -101,7 +101,7 @@ namespace MyCode.Services
             return Task.CompletedTask;
         }
 
-        public Task<Employee> Fire(int id)
+        public Task<Employee> Fired(int id)
         {
             return Task.Run(() =>
             {

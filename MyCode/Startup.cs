@@ -51,7 +51,7 @@ namespace MyCode
 
             app.UseEndpoints(endpoints => //端点中间件
             {
-                endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute("default", "{controller=Department}/{action=Index}/{id?}");
                 //endpoints.MapGet("/", async context =>
                 //{
                 //    await context.Response.WriteAsync("Hello World!");

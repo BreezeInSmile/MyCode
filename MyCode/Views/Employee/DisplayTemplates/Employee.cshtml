@@ -1,0 +1,14 @@
+﻿@model MyCode.Models.Employee
+
+<tr>
+    <td>@Model.FirstName</td>
+    <td>@Model.LastName</td>
+    <td>@Model.Gender</td>
+    <td>@(Model.Fired ? "是" : string.Empty)</td>
+    <td>
+        @if (!Model.Fired)
+        {
+            <a asp-action="Fired" asp-route-employeeId="@Model.Id">Fired</a>
+        }
+    </td>
+</tr>
