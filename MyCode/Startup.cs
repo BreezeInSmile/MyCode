@@ -8,27 +8,34 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MyCode.Services;
+using Microsoft.Extensions.Configuration;
+using MyCode.Models;
 
 namespace MyCode
 {
     public class Startup
     {
+        private readonly IConfiguration _configuration;
+        public Startup(IConfiguration configuration){
+            _configuration=configuration;
+        }
+
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            //MVC×¢²á
+            //MVC×¢ï¿½ï¿½
             services.AddControllersWithViews();
 
             /*
-             * AddTransient ÔÝÊ±Éú´æÆÚ·þÎñ£¬ÊÇÃ¿´Î´Ó·þÎñÈÝÆ÷½øÐÐÇëÇóÊ±´´½¨µÄ¡£ ÕâÖÖÉú´æÆÚÊÊºÏÇáÁ¿¼¶¡¢ ÎÞ×´Ì¬µÄ·þÎñ
-             * AddScoped ×÷ÓÃÓòÉú´æÆÚ·þÎñ£¬ÒÔÃ¿¸ö¿Í»§¶ËÇëÇó£¨Á¬½Ó£©Ò»´ÎµÄ·½Ê½´´½¨
-             * AddSingleton µ¥Ò»ÊµÀýÉú´æÆÚ·þÎñ£¬ÊÇÔÚµÚÒ»´ÎÇëÇóÊ±£¨»òÕßÔÚÔËÐÐ Startup.ConfigureServices ²¢ÇÒÊ¹ÓÃ·þÎñ×¢²áÖ¸¶¨ÊµÀýÊ±£©´´½¨µÄ¡£ Ã¿¸öºóÐøÇëÇó¶¼Ê¹ÓÃÏàÍ¬µÄÊµÀý¡£Èç¹ûÓ¦ÓÃÐèÒªµ¥Ò»ÊµÀýÐÐÎª£¬½¨ÒéÔÊÐí·þÎñÈÝÆ÷¹ÜÀí·þÎñµÄÉú´æÆÚ¡£²»ÒªÊµÏÖµ¥Ò»ÊµÀýÉè¼ÆÄ£Ê½²¢Ìá¹©ÓÃ»§´úÂëÀ´¹ÜÀí¶ÔÏóÔÚÀàÖÐµÄÉú´æÆÚ
+             * AddTransient ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½Ú·ï¿½ï¿½ï¿½ï¿½ï¿½Ã¿ï¿½Î´Ó·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½Ä¡ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Êºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½×´Ì¬ï¿½Ä·ï¿½ï¿½ï¿½
+             * AddScoped ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú·ï¿½ï¿½ï¿½ï¿½ï¿½Ã¿ï¿½ï¿½ï¿½Í»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó£ï¿½Ò»ï¿½ÎµÄ·ï¿½Ê½ï¿½ï¿½ï¿½ï¿½
+             * AddSingleton ï¿½ï¿½Ò»Êµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Startup.ConfigureServices ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½Ã·ï¿½ï¿½ï¿½×¢ï¿½ï¿½Ö¸ï¿½ï¿½Êµï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¡ï¿½ Ã¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½ï¿½ï¿½Í¬ï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½Ò»Êµï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú¡ï¿½ï¿½ï¿½ÒªÊµï¿½Öµï¿½Ò»Êµï¿½ï¿½ï¿½ï¿½ï¿½Ä£Ê½ï¿½ï¿½ï¿½á¹©ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ðµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
              */
             services.AddSingleton<IClock, ChinaClock>();
             services.AddSingleton<IDepartmentService, DepartmentService>();
             services.AddSingleton<IEmployeeService, EmployeeService>();
-
+            services.Configure<MyCodeOptions>(_configuration.GetSection("MyCode"));
             //API
             //services.AddControllers();
         }
@@ -41,15 +48,15 @@ namespace MyCode
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseStaticFiles();//Ê¹ÓÃ¾²Ì¬ÎÄ¼þ
+            app.UseStaticFiles();//Ê¹ï¿½Ã¾ï¿½Ì¬ï¿½Ä¼ï¿½
 
-            app.UseHttpsRedirection();//°ÑhttpÇëÇó×ª»»ÎªhttpsÇëÇó
+            app.UseHttpsRedirection();//ï¿½ï¿½httpï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½Îªhttpsï¿½ï¿½ï¿½ï¿½
 
-            app.UseAuthentication();//Éí·ÝÑéÖ¤
+            app.UseAuthentication();//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¤
 
-            app.UseRouting();//Â·ÓÉÖÐ¼ä¼þ
+            app.UseRouting();//Â·ï¿½ï¿½ï¿½Ð¼ï¿½ï¿½
 
-            app.UseEndpoints(endpoints => //¶ËµãÖÐ¼ä¼þ
+            app.UseEndpoints(endpoints => //ï¿½Ëµï¿½ï¿½Ð¼ï¿½ï¿½
             {
                 endpoints.MapControllerRoute("default", "{controller=Department}/{action=Index}/{id?}");
                 //endpoints.MapGet("/", async context =>

@@ -2,16 +2,18 @@
 using MyCode.Models;
 using MyCode.Services;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Options;
 
 namespace MyCode.Controllers
 {
     public class DepartmentController : Controller
     {
         private readonly IDepartmentService _departmentService;
-
-        public DepartmentController(IDepartmentService departmentService)
+        private readonly IOptions<MyCodeOptions> _myCodeOptions;
+        public DepartmentController(IDepartmentService departmentService, IOptions<MyCodeOptions> myCodeOptions)
         {
             this._departmentService = departmentService;
+            this._myCodeOptions = myCodeOptions;
         }
 
         public async Task<IActionResult> Index()

@@ -18,6 +18,10 @@ namespace MyCode
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
+                .ConfigureAppConfiguration((context, configBuilder)=>{
+                    configBuilder.Sources.Clear();
+                    configBuilder.AddJsonFile("nick.json");
+                })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
