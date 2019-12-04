@@ -6,8 +6,15 @@ namespace MyCode.ViewComponents{
         
         private readonly IDepartmentService _departmentService;
 
-        public class CompanySummaryViewComponent(IDepartmentService departmentService){
-
+        public CompanySummaryViewComponent(IDepartmentService departmentService){
+            this._departmentService = departmentService;
         }
+
+        public async Task<IViewComponentResult> InvokeAsync(string title){
+            ViewBag.Title = title;
+            var summary = await _departmentService.GetCompanySummary();
+            return View(summary);
+        }
+        
     }
 }
