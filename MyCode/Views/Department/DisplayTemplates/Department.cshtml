@@ -4,13 +4,15 @@
 @inject IOptions<MyCodeOptions> options
 
 <tr>
-    @if(Model.EmployeeCount > options.Value.BoldDepartmentEmployeeCountThreshold){
+    @if (Model.EmployeeCount > options.Value.BoldDepartmentEmployeeCountThreshold)
+    {
         <td><strong>@Model.Name</strong></td>
     }
-    else{
+    else
+    {
         <td>@Model.Name</td>
     }
-    
+
     <td>@Model.Location</td>
     <td>@Model.EmployeeCount</td>
 
